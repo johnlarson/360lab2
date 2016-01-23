@@ -7,6 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void server(int port, char* dir) {
+void runserver(int port, char* dir) {
 	
 }

@@ -1,12 +1,6 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include "utils.h"
 #include "server.h"
 
 #define ERROR -1
@@ -16,11 +10,10 @@ int main(int argc, char** argv) {
 		expressFrustration("You need to type in something in this format: server port-number directory");
 	}
 	int port;
-	//try {
-		port = atoi(argv[1]);
-	//} catch(const invalid_argument &ia) {
-		//expressFrustration("The port needs to be number");
-	//}
+	port = atoi(argv[1]);
+	if(port == 0) {
+		expressFrustration("The port has to be an integer greater than zero");
+	}
 	char* directory = argv[2];
 	struct stat filestat;
 	if(stat(directory, &filestat) == ERROR) {

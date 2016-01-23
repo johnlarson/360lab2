@@ -1,1 +1,1 @@
-void server(int port, char* dir);
+void runserver(int port, char* dir);
