@@ -12,7 +12,6 @@
 
 void startSocket(int port, int* hSocket, struct sockaddr_in* address);
 void acceptLoop(int hServerSocket, struct sockaddr_in address);
-void acceptConnection(int hSocket, struct sockaddr_in address);
 void respondRequest(int hSocket);
 void closeSocket(int hSocket);
 
@@ -48,10 +47,6 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address) {
 		int hSocket = accept(hServerSocket, (struct sockaddr*)&address, (socklen_t*)&addressSize);
 		respondRequest(hSocket);
 	}
-}
-
-void acceptConnection(int hSocket, struct sockaddr_in address) {
-	
 }
 
 void respondRequest(int hSocket) {
