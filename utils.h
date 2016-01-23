@@ -1,0 +1,1 @@
+void expressFrustration(char* msg);
