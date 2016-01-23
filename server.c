@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
 
 #define QUEUE_SIZE 5
 #define ERROR -1
@@ -50,7 +51,7 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address) {
 }
 
 void respondRequest(int hSocket) {
-	
+	//char* request = getRequest(hSocket);	
 }
 
 void closeSocket(int hSocket) {
