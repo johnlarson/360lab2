@@ -1,8 +1,8 @@
 all:
-	gcc main.c utils.c server.c -o server
+	gcc main.c utils.c server.c request.c response.c -o server
 
 debug:
-	g++ -g main.c utils.c server.c -o debug
+	gcc -g main.c utils.c server.c request.c response.c -o debug
 
 clean:
 	rm debug server *.o

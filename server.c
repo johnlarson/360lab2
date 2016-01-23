@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "request.h"
+#include "response.h"
+#include "cs360Utils.h"
 
 #define QUEUE_SIZE 5
 #define ERROR -1
@@ -51,7 +54,11 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address) {
 }
 
 void respondRequest(int hSocket) {
-	//char* request = getRequest(hSocket);	
+	struct request myRequest = buildRequest(hSocket);
+	printf("%s\n", myRequest.method);
+	printf("%s\n", myRequest.path);
+	printf("%s\n", myRequest.version);
+	write(hSocket, "a message\r\n\r\n", strlen("a messagei\r\n\r\n") + 1);
 }
 
 void closeSocket(int hSocket) {

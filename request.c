@@ -1,19 +1,4 @@
-struct request {
-
-	// first line
-	char* method;
-	char* path;
-	char* version;
-
-	// headers
-	char* headers;
-
-	// body
-	char* body;
-
-}
-
-buildRequest(int hSocket) {
+struct request buildRequest(int hSocket) {
 	struct request result;
 	result.method = "GET";
 	result.path = "/hello.html";
