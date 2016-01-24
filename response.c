@@ -3,8 +3,6 @@
 
 #define HEADERS_LENGTH
 
-int getLength(struct Response response);
-
 char* getResponseString(struct Response response) {
 	//return "stuff\r\n\r\n";
 	int responseLength = getLength(response);
@@ -27,9 +25,6 @@ char* getResponseString(struct Response response) {
 }
 
 int getLength(struct Response response) {
-	printf("VERSION: %s\n", response.version);
-	printf("STATUS: %i\n", response.status);
-	printf("MESSAGE: %s\n", response.statusMessage);
 	int space = strlen(" ");
 	int newline = strlen("\r\n");
 	int version = strlen(response.version) + space;

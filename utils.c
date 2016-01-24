@@ -19,3 +19,10 @@ char* getRandomEnding() {
 	int index = rand() % 15;
 	return endings[index];
 }
+
+char* substring(int firstIndex, int length, char* oStr) {
+	char* substr = (char*)malloc(length + 1);
+	memcpy(substr, &oStr[firstIndex], length);
+	substr[length] = '\0';
+	return substr;
+}

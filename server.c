@@ -57,12 +57,11 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 
 void respondRequest(int hSocket, char* dir) {
 	struct Request request = buildRequest(hSocket);
-	printf("%s\n", request.method);
-	printf("%s\n", request.path);
-	printf("%s\n", request.version);
 	struct Response response = buildResponse(request, dir);
+	int responseLength = getLength(response);
 	char* msg = getResponseString(response); 
 	write(hSocket, msg, strlen(msg) + 1);
+	//free(msg);
 }
 
 void closeSocket(int hSocket) {
