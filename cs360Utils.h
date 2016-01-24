@@ -1,3 +1,6 @@
+#ifndef CS360_UTILS_H
+#define CS360_UTILS_H
+
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -7,7 +10,7 @@
 #define MAX_MSG_SZ      1024
 
 // Determine if the character is whitespace
-int isWhitespace(char c)
+static inline int isWhitespace(char c)
 { switch (c)
     {
         case '\r':
@@ -21,7 +24,7 @@ int isWhitespace(char c)
 }
 
 // Strip off whitespace characters from the end of the line
-void chomp(char *line)
+static inline void chomp(char *line)
 {
     int len = strlen(line);
     while (isWhitespace(line[len]))
@@ -32,7 +35,7 @@ void chomp(char *line)
 
 // Read the line one character at a time, looking for the CR
 // You dont want to read too far, or you will mess up the content
-char * GetLine(int fds)
+static inline char * GetLine(int fds)
 {
     char tline[MAX_MSG_SZ];
     char *line;
@@ -60,35 +63,5 @@ char * GetLine(int fds)
     //fprintf(stderr, "GetLine: [%s]\n", line);
     return line;
 }
-    
-// Change to upper case and replace with underlines for CGI scripts
-void UpcaseAndReplaceDashWithUnderline(char *str)
-{
-    int i;
-    char *s;
-    
-    s = str;
-    for (i = 0; s[i] != ':'; i++)
-    {
-        if (s[i] >= 'a' && s[i] <= 'z')
-            s[i] = 'A' + (s[i] - 'a');
-        
-        if (s[i] == '-')
-            s[i] = '_';
-    }
-    
-}
 
-
-// When calling CGI scripts, you will have to convert header strings
-// before inserting them into the environment.  This routine does most
-// of the conversion
-char *FormatHeader(char *str, const char *prefix)
-{
-    char *result = (char *)malloc(strlen(str) + strlen(prefix));
-    char* value = strchr(str,':') + 1;
-    UpcaseAndReplaceDashWithUnderline(str);
-    *(strchr(str,':')) = '\0';
-    sprintf(result, "%s%s=%s", prefix, str, value);
-    return result;
-}
+#endif

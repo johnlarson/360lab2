@@ -1,8 +1,12 @@
-struct request buildRequest(int hSocket) {
-	struct request result;
-	result.method = "GET";
-	result.path = "/hello.html";
-	result.version = "HTTP/1.1";
+#include "request.h"
+#include "cs360Utils.h"
+
+struct Request buildRequest(int hSocket) {
+	struct Request result;
+	char* firstLine = GetLine(hSocket);
+	result.method = strtok(firstLine, " ");
+	result.path = strtok(NULL, " ");
+	result.version = strtok(NULL, " ");
 	result.headers = "Header stuff";
 	result.body = "";
 	return result;

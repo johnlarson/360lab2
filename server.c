@@ -10,20 +10,21 @@
 #include "request.h"
 #include "response.h"
 #include "cs360Utils.h"
+#include "fileserving.h"
 
 #define QUEUE_SIZE 5
 #define ERROR -1
 
 void startSocket(int port, int* hSocket, struct sockaddr_in* address);
-void acceptLoop(int hServerSocket, struct sockaddr_in address);
-void respondRequest(int hSocket);
+void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir);
+void respondRequest(int hSocket, char* dir);
 void closeSocket(int hSocket);
 
 void runserver(int port, char* dir) {
 	int hServerSocket;
 	struct sockaddr_in address;
 	startSocket(port, &hServerSocket, &address);
-	acceptLoop(hServerSocket, address);	
+	acceptLoop(hServerSocket, address, dir);	
 	closeSocket(hServerSocket);
 }
 
@@ -45,22 +46,27 @@ void startSocket(int port, int* hSocket, struct sockaddr_in* address) {
 	} 
 }
 
-void acceptLoop(int hServerSocket, struct sockaddr_in address) {
+void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 	while(1) {
 		int addressSize = sizeof(struct sockaddr_in);
 		int hSocket = accept(hServerSocket, (struct sockaddr*)&address, (socklen_t*)&addressSize);
-		respondRequest(hSocket);
+		respondRequest(hSocket, dir);
+		closeSocket(hSocket);
 	}
 }
 
-void respondRequest(int hSocket) {
-	struct request myRequest = buildRequest(hSocket);
-	printf("%s\n", myRequest.method);
-	printf("%s\n", myRequest.path);
-	printf("%s\n", myRequest.version);
-	write(hSocket, "a message\r\n\r\n", strlen("a messagei\r\n\r\n") + 1);
+void respondRequest(int hSocket, char* dir) {
+	struct Request request = buildRequest(hSocket);
+	printf("%s\n", request.method);
+	printf("%s\n", request.path);
+	printf("%s\n", request.version);
+	struct Response response = buildResponse(request, dir);
+	char* msg = getResponseString(response); 
+	write(hSocket, msg, strlen(msg) + 1);
 }
 
 void closeSocket(int hSocket) {
-	
+	if(close(hSocket) == ERROR) {
+		expressFrustration("The whole thing exploded when I tried to close a socket");
+	}
 }

@@ -1,21 +1,21 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
-struct response {
+struct Response {
 	
 	// first line
 	char* version;
-	int status;
+	char* status;
 	char* statusMessage;
 
 	// headers
 	char* contentType;
-	int contentLength;
+	char* contentLength;
+	int contentLengthInt;
 
 	char* body;
 };
 
-struct response;
-char* getResponseStr(struct response myResponse);
+char* getResponseString(struct Response response);
 
 #endif

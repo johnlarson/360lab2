@@ -1,7 +1,7 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
-struct request {
+struct Request {
 
 	// first line
 	char* method;
@@ -16,6 +16,6 @@ struct request {
 
 };
 
-struct request buildRequest(int hSocket);
+struct Request buildRequest(int hSocket);
 
 #endif
