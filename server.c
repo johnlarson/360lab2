@@ -57,6 +57,7 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 		setsockopt(hSocket, SOL_SOCKET, SO_LINGER, &lin, sizeof(lin));
 		respondRequest(hSocket, dir);
 		shutdown(hSocket, SHUT_RDWR);
+		//getchar();
 		closeSocket(hSocket);
 	}
 }
@@ -68,8 +69,8 @@ void respondRequest(int hSocket, char* dir) {
 	char* msg = getResponseString(response); 
 	printf("%i\n", responseLength);
 	printf("%i\n", strlen(msg));
-	printf("%s\n", msg);
-	write(hSocket, msg, 999999);
+	//printf("%s\n", msg);
+	write(hSocket, msg, responseLength);
 	//free(msg);
 }
 

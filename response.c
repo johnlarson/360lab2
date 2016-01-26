@@ -20,7 +20,13 @@ char* getResponseString(struct Response response) {
 	strcat(rt, response.contentLength);
 	strcat(rt, "\r\n");
 	strcat(rt, "\r\n");
-	strcat(rt, response.body);
+	char* forward = rt;
+	int forwardLength = 0;
+	while(*(forward++) != '\0') {
+		forwardLength++;
+	}
+	memcpy(rt, response.body, response.contentLengthInt);
+	//strcat(rt, response.body);
 	return rt;
 }
 
@@ -35,5 +41,5 @@ int getLength(struct Response response) {
 	int contentLength = strlen("Content-Length: ") + strlen(response.contentLength) + newline;
 	int emptyLine = newline;
 	int body = response.contentLengthInt;
-	return firstLine + contentType + contentLength + emptyLine + body + 1;
+	return firstLine + contentType + contentLength + emptyLine + body;
 }
