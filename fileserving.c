@@ -23,6 +23,7 @@ struct Response buildResponse(struct Request request, char* root) {
 	struct stat filestat;
 	struct Response response = buildResponseRec(path, request.path, filestat);
 	response.version = request.version;
+	response.contentLength = (char*)malloc(30);
 	sprintf(response.contentLength, "%i", response.contentLengthInt);
 	//free(path);
 	return response;

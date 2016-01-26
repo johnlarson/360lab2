@@ -69,7 +69,7 @@ void respondRequest(int hSocket, char* dir) {
 	printf("%i\n", responseLength);
 	printf("%i\n", strlen(msg));
 	printf("%s\n", msg);
-	write(hSocket, msg, responseLength);
+	write(hSocket, msg, 999999);
 	//free(msg);
 }
 
