@@ -31,9 +31,9 @@ int getLength(struct Response response) {
 	int status = strlen(response.status) + space;
 	int statusMessage = strlen(response.statusMessage);
 	int firstLine = version + status + statusMessage + newline;
-	int contentType = strlen(response.contentType) + newline;
-	int contentLength = strlen(response.contentLength) +newline;
+	int contentType = strlen("Content-Type: ") + strlen(response.contentType) + newline;
+	int contentLength = strlen("Content-Length: ") + strlen(response.contentLength) + newline;
 	int emptyLine = newline;
-	int body = strlen(response.body);
+	int body = response.contentLengthInt;
 	return firstLine + contentType + contentLength + emptyLine + body + 1;
 }

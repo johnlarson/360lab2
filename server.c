@@ -50,7 +50,13 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 	while(1) {
 		int addressSize = sizeof(struct sockaddr_in);
 		int hSocket = accept(hServerSocket, (struct sockaddr*)&address, (socklen_t*)&addressSize);
+		struct linger lin;
+		unsigned int y = sizeof(lin);
+		lin.l_onoff = 1;
+		lin.l_linger = 10;
+		setsockopt(hSocket, SOL_SOCKET, SO_LINGER, &lin, sizeof(lin));
 		respondRequest(hSocket, dir);
+		shutdown(hSocket, SHUT_RDWR);
 		closeSocket(hSocket);
 	}
 }
@@ -60,7 +66,10 @@ void respondRequest(int hSocket, char* dir) {
 	struct Response response = buildResponse(request, dir);
 	int responseLength = getLength(response);
 	char* msg = getResponseString(response); 
-	write(hSocket, msg, strlen(msg) + 1);
+	printf("%i\n", responseLength);
+	printf("%i\n", strlen(msg));
+	printf("%s\n", msg);
+	write(hSocket, msg, responseLength);
 	//free(msg);
 }
 
