@@ -50,14 +50,14 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 	while(1) {
 		int addressSize = sizeof(struct sockaddr_in);
 		int hSocket = accept(hServerSocket, (struct sockaddr*)&address, (socklen_t*)&addressSize);
-		//struct linger lin;
-		//unsigned int y = sizeof(lin);
-		//lin.l_onoff = 1;
-		//lin.l_linger = 10;
-		//setsockopt(hSocket, SOL_SOCKET, SO_LINGER, &lin, sizeof(lin));
+		struct linger lin;
+		unsigned int y = sizeof(lin);
+		lin.l_onoff = 1;
+		lin.l_linger = 10;
+		setsockopt(hSocket, SOL_SOCKET, SO_LINGER, &lin, sizeof(lin));
 		respondRequest(hSocket, dir);
-		//shutdown(hSocket, SHUT_RDWR);
-		//getchar();
+		shutdown(hSocket, SHUT_RDWR);
+		getchar();
 		closeSocket(hSocket);
 	}
 	printf("\n!!!!!!!!!!!!!!!!!!NNNNNNNNOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!\n");
@@ -72,7 +72,7 @@ void respondRequest(int hSocket, char* dir) {
 	printf("%i\n", strlen(msg));
 	printf("%s\n", msg);
 	int chunkLength = 255;
-	int amountLeft = 99999999;//responseLength;
+	int amountLeft = responseLength;
 	int amountWritten = 0;
 	while(amountLeft >= chunkLength) {
 		amountLeft -= chunkLength;
