@@ -60,6 +60,7 @@ void acceptLoop(int hServerSocket, struct sockaddr_in address, char* dir) {
 		//getchar();
 		closeSocket(hSocket);
 	}
+	printf("\n!!!!!!!!!!!!!!!!!!NNNNNNNNOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!\n");
 }
 
 void respondRequest(int hSocket, char* dir) {
@@ -69,7 +70,7 @@ void respondRequest(int hSocket, char* dir) {
 	char* msg = getResponseString(response); 
 	printf("%i\n", responseLength);
 	printf("%i\n", strlen(msg));
-	//printf("%s\n", msg);
+	printf("%s\n", msg);
 	int chunkLength = 255;
 	int amountLeft = 99999999;//responseLength;
 	int amountWritten = 0;

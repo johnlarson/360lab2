@@ -25,7 +25,7 @@ char* getResponseString(struct Response response) {
 	while(*(forward++) != '\0') {
 		forwardLength++;
 	}
-	memcpy(rt, response.body, response.contentLengthInt);
+	memcpy(forward - 1, response.body, response.contentLengthInt);
 	//strcat(rt, response.body);
 	return rt;
 }

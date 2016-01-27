@@ -104,11 +104,11 @@ char* joinPath(char* parent, char* child) {
 }
 
 char* get404() {
-	return "<!DOCTYPE html><html><head></head><body>404 Message Here</body></html>";
+	return "<!DOCTYPE html><html><head></head><body>Sorry braw, that file doesn't exist.</body></html>";
 }
 
 char* getBody(char* path, struct stat filestat) {
-	FILE* fp = fopen(path, "r");
+	FILE* fp = fopen(path, "rb");
  	char* buffer = (char*)malloc(filestat.st_size + 4);
 	fread(buffer, filestat.st_size, 1, fp);
 	fclose(fp);
