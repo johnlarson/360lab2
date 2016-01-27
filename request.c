@@ -6,7 +6,12 @@ struct Request buildRequest(int hSocket) {
 	char* firstLine = GetLine(hSocket);
 	result.method = strtok(firstLine, " ");
 	result.path = strtok(NULL, " ");
-	result.version = strtok(NULL, " ");
+	char* version = strtok(NULL, " ");
+	if(strlen(version) == 0) {
+		result.version = "HTTP/1.0";
+	} else {
+		result.version = version;
+	}
 	result.headers = "Header stuff";
 	result.body = "";
 	return result;
